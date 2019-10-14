@@ -21,7 +21,7 @@ topic_choices = (
 
 class TeacherModel(models.Model):
     name = models.CharField(max_length=250)
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return self.name
@@ -35,7 +35,7 @@ class ResourceModel(models.Model):
     level = models.CharField(max_length=50, choices=lev_choices)
     topic = models.CharField(max_length=50, choices=topic_choices)
     saved_by = models.ManyToManyField(TeacherModel, related_name='saved_resources', blank=True)
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return self.link
@@ -45,7 +45,7 @@ class RatingModel(models.Model):
     resource = models.ForeignKey(ResourceModel, related_name='ratings', on_delete=models.CASCADE)
     teacher = models.ForeignKey(TeacherModel, related_name='given_ratings', on_delete=models.CASCADE)
     rating = models.IntegerField()
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return self.resource
@@ -55,7 +55,7 @@ class CommentModel(models.Model):
     resource = models.ForeignKey(ResourceModel, related_name='comments',on_delete=models.CASCADE)
     teacher = models.ForeignKey(TeacherModel, related_name='given_comments',on_delete=models.CASCADE)
     comment = models.CharField(max_length=1000)
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(default=timezone.now, blank =True)
 
 
     def __str__(self):
