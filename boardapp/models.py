@@ -22,6 +22,7 @@ topic_choices = (
 class TeacherModel(models.Model):
     name = models.CharField(max_length=250)
     created = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    followed_by = models.ManyToManyField("self", related_name='following',blank=True)
 
     def __str__(self):
         return self.name
