@@ -23,6 +23,7 @@ router.register(r'tchr',views.TeacherModelViewset)
 router.register(r'rsc', views.ResourceModelViewset)
 router.register(r'rat',views.RatingModelViewset)
 router.register(r'cmnt',views.CommentModelViewset)
+#router.register(r'my_links',views.my_links, base_name='MyLinks')
 
 
 
@@ -30,4 +31,12 @@ router.register(r'cmnt',views.CommentModelViewset)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include(router.urls)),
+    path('get_resources/',views.get_resources, name='get_resources'),
+    path('get_teachers/',views.get_teachers, name='get_teachers'),
+    path('create_resource/',views.create_resource, name='create_resource'),
+    path('get_create_ratings/', views.get_create_ratings, name='get_create_ratings'),
+    path('get_create_comments/',views.get_create_comments, name='get_create_comments'),
+    path('social-auth/',include('social_django.urls', namespace='social')),
+    path('un/', views.un, name='un'),
+    
 ]

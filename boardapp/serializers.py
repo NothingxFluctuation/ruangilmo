@@ -14,7 +14,7 @@ class TeacherModelSerializer(serializers.ModelSerializer):
 class ResourceModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceModel
-        fields = ('teacher','link','subject','level','topic','saved_by','created')
+        fields = ('teacher','link','description','subject','level','topic','saved_by','created')
 
 
 class RatingModelSerializer(serializers.ModelSerializer):

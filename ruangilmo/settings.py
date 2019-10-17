@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ['127.0.0.1','ruangilmo.pythonanywhere.com']
 INSTALLED_APPS = [
     'boardapp',
     'rest_framework',
+    'social_django',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,6 +56,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+#authentication backends
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1097278834112-f89kgburhv5ehmidrfjf8v1k86uadd2r.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "WMKNP3iToxCqBmGAr8bXLU-E"
+
 
 ROOT_URLCONF = 'ruangilmo.urls'
 

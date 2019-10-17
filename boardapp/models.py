@@ -23,20 +23,44 @@ class TeacherModel(models.Model):
     name = models.CharField(max_length=250)
     created = models.DateTimeField(default=timezone.now, blank=True, null=True)
     followed_by = models.ManyToManyField("self", related_name='following',blank=True)
+    is_admin = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.name
 
+class SubjectModel(models.Model):
+    title = models.CharField(max_length=250)
+    created = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return self.title
+
+class LevelModel(models.Model):
+    title = models.CharField(max_length=250)
+    created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
+
+class TopicModel(models.Model):
+    title = models.CharField(max_length=250)
+    created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
 
 class ResourceModel(models.Model):
     teacher = models.ForeignKey(TeacherModel, related_name='resources', on_delete=models.CASCADE)
     link = models.CharField(max_length=1000)
-    subject = models.CharField(max_length=50,choices=sub_choices)
-    level = models.CharField(max_length=50, choices=lev_choices)
-    topic = models.CharField(max_length=50, choices=topic_choices)
+    description = models.TextField(max_length=2000, null=True)
+    subject = models.ForeignKey(SubjectModel, related_name='subject_resources', on_delete = models.CASCADE)
+    level = models.ForeignKey(LevelModel, related_name='level_resources', on_delete=models.CASCADE)
+    topic = models.ForeignKey(TopicModel, related_name='topic_resources', on_delete=models.CASCADE)
     saved_by = models.ManyToManyField(TeacherModel, related_name='saved_resources', blank=True)
     created = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    is_featured = models.BooleanField(default=False)
+    is_pending = models.BooleanField(default=True)
 
     def __str__(self):
         return self.link
@@ -49,7 +73,7 @@ class RatingModel(models.Model):
     created = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
     def __str__(self):
-        return self.resource
+        return self.resource.link
 
 
 class CommentModel(models.Model):
