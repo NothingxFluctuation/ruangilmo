@@ -1,31 +1,51 @@
 from rest_framework import serializers
-from .models import TeacherModel, ResourceModel, RatingModel, CommentModel
+from .models import TeacherModel, ResourceModel, RatingModel, CommentModel, ProfileModel, TopicModel, LevelModel, SubjectModel
 
 
 
 #serializers
 
+class ProfileModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProfileModel
+        fields = ('id','user','role','created')
+
 class TeacherModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeacherModel
-        fields = ('id','name','created')
+        fields = ('id','user','followed_by','created')
     
 
 class ResourceModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceModel
-        fields = ('teacher','link','description','subject','level','topic','saved_by','created')
+        fields = ('id','author','link','description','subject','level','topic','note','exercise','saved_by','created')
 
 
 class RatingModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = RatingModel
-        fields = ('resource','teacher','rating','created')
+        fields = ('id','resource','rated_by','rating','created')
 
 
 class CommentModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommentModel
-        fields = ('resource','teacher','comment','created')
+        fields = ('id','resource','commenter','comment','created')
 
+
+class TopicModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TopicModel
+        fields = ('id','title','created')
+
+class LevelModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LevelModel
+        fields = ('id','title','created')
+
+class SubjectModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubjectModel
+        fields = ('id','title','created')
 

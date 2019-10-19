@@ -55,14 +55,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 
+]
 
 #authentication backends
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    
 ]
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1097278834112-f89kgburhv5ehmidrfjf8v1k86uadd2r.apps.googleusercontent.com"
@@ -80,6 +82,8 @@ REST_FRAMEWORK = {
 }
 
 
+LOGIN_REDIRECT_URL = 'un'
+
 
 
 TEMPLATES = [
@@ -93,6 +97,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
