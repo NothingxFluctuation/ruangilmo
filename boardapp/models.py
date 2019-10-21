@@ -52,10 +52,15 @@ class TeacherModel(models.Model):
 class StudentModel(models.Model):
     user = models.ForeignKey(ProfileModel, related_name='studying', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now, blank=True, null=True)
-    disabled = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user.user.username
+
+class IsStudentAllowedToPost(models.Model):
+    Allowed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.Allowed)
 
 
 

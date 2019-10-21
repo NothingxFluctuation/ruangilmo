@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
-from .models import TeacherModel, ResourceModel, RatingModel, CommentModel, ProfileModel, SubjectModel, LevelModel, TopicModel, StudentModel
+from .models import TeacherModel, ResourceModel, RatingModel, CommentModel, ProfileModel, SubjectModel, LevelModel, TopicModel, StudentModel,\
+    IsStudentAllowedToPost
 from .serializers import TeacherModelSerializer, ResourceModelSerializer, RatingModelSerializer, CommentModelSerializer, ProfileModelSerializer,\
     TopicModelSerializer, LevelModelSerializer, SubjectModelSerializer
 from rest_framework.decorators import api_view
@@ -103,7 +104,8 @@ def get_create_resource(request):
         if request.user.profile.role == 'student':
             profile = request.user.profile
             stdnt = StudentModel.objects.get(user=profile)
-            disability = stdnt.disabled
+            disabilityObj = IsStudentAllowedToPost.objects.latest('id')
+            disability = disability.Allowed
             if disability:
                 return Response({'Error':'You are not permitted to post.'}, status= status.HTTP_401_UNAUTHORIZED)
         serializer = ResourceModelSerializer(data = request.data)

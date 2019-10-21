@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'boardapp',
     'rest_framework',
     'social_django',
+    'corsheaders',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,6 +60,12 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
 
 ]
+
+#cors 
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+
 
 #authentication backends
 
