@@ -13,13 +13,13 @@ class ProfileModelSerializer(serializers.ModelSerializer):
 class TeacherModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = TeacherModel
-        fields = ('id','user','followed_by','created')
-    
+        fields = ('id','user','followed_by','is_admin','created')
+
 
 class ResourceModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResourceModel
-        fields = ('id','author','link','description','subject','level','topic','note','exercise','saved_by','created')
+        fields = ('id','author','link','description','subject','level','topic','resource_type','saved_by','created')
 
 
 class RatingModelSerializer(serializers.ModelSerializer):
@@ -37,12 +37,12 @@ class CommentModelSerializer(serializers.ModelSerializer):
 class TopicModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = TopicModel
-        fields = ('id','title','created')
+        fields = ('id','title','level','subject','created')
 
 class LevelModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = LevelModel
-        fields = ('id','title','created')
+        fields = ('id','title','subject','created')
 
 class SubjectModelSerializer(serializers.ModelSerializer):
     class Meta:

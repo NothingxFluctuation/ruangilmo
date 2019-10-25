@@ -73,6 +73,7 @@ class SubjectModel(models.Model):
 
 class LevelModel(models.Model):
     title = models.CharField(max_length=250)
+    subject = models.ForeignKey(SubjectModel, blank=True, null=True, related_name='subject_levels', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
     def __str__(self):
@@ -80,23 +81,20 @@ class LevelModel(models.Model):
 
 class TopicModel(models.Model):
     title = models.CharField(max_length=250)
+    level = models.ForeignKey(LevelModel, blank=True, null=True, related_name='level_topics', on_delete=models.CASCADE)
+    subject = models.ForeignKey(SubjectModel, blank=True, null=True, related_name='subject_topics', on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
     def __str__(self):
         return self.title
-class NoteModel(models.Model):
-    title = models.CharField(max_length=250)
-    created = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
-    def __str__(self):
-        return self.title
 
-class ExerciseModel(models.Model):
-    title = models.CharField(max_length=250)
-    created = models.DateTimeField(default=timezone.now, blank=True, null=True)
+notex_choices = (
+    ('exercise','Exercise'),
+    ('notes','Notes'),
+)
 
-    def __str__(self):
-        return self.title
+
 
 class ResourceModel(models.Model):
     author = models.ForeignKey(ProfileModel, related_name='resources', on_delete=models.CASCADE, null=True, blank=True)
@@ -105,8 +103,7 @@ class ResourceModel(models.Model):
     subject = models.ForeignKey(SubjectModel, related_name='subject_resources', on_delete = models.CASCADE)
     level = models.ForeignKey(LevelModel, related_name='level_resources', on_delete=models.CASCADE)
     topic = models.ForeignKey(TopicModel, related_name='topic_resources', on_delete=models.CASCADE)
-    note = models.ForeignKey(NoteModel, related_name='note_resources', on_delete=models.CASCADE, blank=True, null=True)
-    exercise = models.ForeignKey(ExerciseModel, related_name='exercise_resources', on_delete=models.CASCADE, blank=True, null=True)
+    resource_type = models.CharField(max_length=50, choices = notex_choices, default='exercise', blank=True, null=True)
     saved_by = models.ManyToManyField(User, related_name='saved_resources', blank=True, default='')
     created = models.DateTimeField(default=timezone.now, blank=True, null=True)
     is_featured = models.BooleanField(default=False)

@@ -55,7 +55,12 @@ urlpatterns = [
     path('get_topics/', views.get_topics, name='get_topics'),
     path('get_levels/', views.get_levels, name='get_levels'),
     path('get_subjects/', views.get_subjects, name='get_subjects'),
+    path('get_level_by_subject/', views.get_level_by_subject, name='get_level_by_subject'),
+    path('get_topic_by_sub_level/', views.get_topic_by_sub_level, name='get_topic_by_sub_level'),
+    path('get_username/', views.get_username, name='get_username'),
+
     path('sign_me_in/',views.sign_me_in, name='sign_me_in'),
-    
-    
+    path('who_am_i/', views.who_am_i, name='who_am_i'),
+
+
 ]

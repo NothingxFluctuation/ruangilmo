@@ -39,14 +39,19 @@ INSTALLED_APPS = [
     'rest_framework',
     'social_django',
     'corsheaders',
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework.authtoken',
 ]
+
+
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -61,10 +66,10 @@ MIDDLEWARE = [
 
 ]
 
-#cors 
+#cors
 CORS_ORIGIN_ALLOW_ALL = True
-
-
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ('content-disposition','accept-encoding','content-type','accept','origin','authorization')
 
 
 #authentication backends
@@ -72,7 +77,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
-    
+
 ]
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "1097278834112-f89kgburhv5ehmidrfjf8v1k86uadd2r.apps.googleusercontent.com"
@@ -84,9 +89,12 @@ ROOT_URLCONF = 'ruangilmo.urls'
 
 
 REST_FRAMEWORK = {
-'DEFAULT_PERMISSION_CLASSES': [
-'rest_framework.permissions.AllowAny'
-]
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework.permissions.AllowAny',
+    ],
 }
 
 
